@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify Downloader — MK</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    body {
+      background: #000000;
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(30,215,96,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(30,215,96,0.07) 0%, transparent 50%);
+    }
+    .navbar { background: rgba(0,0,0,0.9); }
+    .btn-fetch  { background: #1db954; color: #000; font-weight: 700; }
+    .btn-download { background: #1db954; color: #000; }
+    .platform-icon { background: rgba(30,215,96,0.1); border: 1px solid rgba(30,215,96,0.3); }
+    .q-btn.active { border-color: #1db954; color: #1db954; }
+    .clean-badge { background: rgba(30,215,96,0.1); color: #1db954; border-color: rgba(30,215,96,0.3); }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon">MK</div>
+    <div class="nav-logo-text">MK Universal Downloader<span>Spotify</span></div>
+  </a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="dropdown" id="dropdown">
+  <a href="https://mrkanha.likesyou.org" target="_blank">👨‍💻 Contact Developer</a>
+  <a href="/">🏠 Home</a>
+</div>
+
+<div class="page-wrap">
+  <div class="container">
+    <div class="page-hero">
+      <div class="platform-icon" style="font-size:28px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border-radius:16px;">🎧</div>
+      <h1>Spotify Downloader</h1>
+      <p>Download Tracks & Playlists as MP3</p>
+    </div>
+
+    <div class="card">
+      <div style="background:rgba(30,215,96,0.07); border:1px solid rgba(30,215,96,0.2); border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:12px; color:rgba(255,255,255,0.5);">
+        ℹ️ Spotify uses yt-dlp via YouTube matching. Works best for popular tracks.
+      </div>
+
+      <div class="input-group">
+        <input id="urlInput" type="url" placeholder="https://open.spotify.com/track/..."/>
+        <button class="btn-fetch" id="btnFetch">Get Info</button>
+      </div>
+
+      <div class="quality-row">
+        <button class="q-btn active" data-q="audio">MP3 Audio</button>
+      </div>
+
+      <div class="preview-box" id="preview">
+        <img class="preview-thumb" id="previewThumb" src="" alt="thumb"/>
+        <div class="preview-info">
+          <div class="preview-title" id="previewTitle"></div>
+          <div class="preview-meta" id="previewMeta"></div>
+          <span class="clean-badge" id="cleanBadge" style="display:none">✓ Tracking removed</span>
+        </div>
+      </div>
+
+      <button class="btn-download" id="btnDownload">⬇ Download</button>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>initDownloader({ platform: 'spotify' });</script>
+</body>
+</html>

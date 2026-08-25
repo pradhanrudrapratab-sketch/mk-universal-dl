@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook Downloader — MK</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    body {
+      background: #00050f;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(24,119,242,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 80%, rgba(10,80,180,0.15) 0%, transparent 50%);
+    }
+    .navbar { background: rgba(0,5,15,0.9); }
+    .btn-fetch  { background: #1877f2; color: white; }
+    .btn-download { background: #1877f2; color: white; }
+    .platform-icon { background: rgba(24,119,242,0.15); border: 1px solid rgba(24,119,242,0.35); }
+    .q-btn.active { border-color: #1877f2; color: #60a5fa; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon">MK</div>
+    <div class="nav-logo-text">MK Universal Downloader<span>Facebook</span></div>
+  </a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="dropdown" id="dropdown">
+  <a href="https://mrkanha.likesyou.org" target="_blank">👨‍💻 Contact Developer</a>
+  <a href="/">🏠 Home</a>
+</div>
+
+<div class="page-wrap">
+  <div class="container">
+    <div class="page-hero">
+      <div class="platform-icon" style="font-size:28px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border-radius:16px;">📘</div>
+      <h1>Facebook Downloader</h1>
+      <p>Download Facebook Videos & Reels</p>
+    </div>
+
+    <div class="card">
+      <div class="input-group">
+        <input id="urlInput" type="url" placeholder="https://www.facebook.com/watch?v=..."/>
+        <button class="btn-fetch" id="btnFetch">Get Info</button>
+      </div>
+
+      <div class="quality-row">
+        <button class="q-btn active" data-q="best">Best Quality</button>
+        <button class="q-btn" data-q="720">HD 720p</button>
+        <button class="q-btn" data-q="480">SD 480p</button>
+        <button class="q-btn" data-q="audio">Audio Only</button>
+      </div>
+
+      <div class="preview-box" id="preview">
+        <img class="preview-thumb" id="previewThumb" src="" alt="thumb"/>
+        <div class="preview-info">
+          <div class="preview-title" id="previewTitle"></div>
+          <div class="preview-meta" id="previewMeta"></div>
+          <span class="clean-badge" id="cleanBadge" style="display:none">✓ Tracking removed</span>
+        </div>
+      </div>
+
+      <button class="btn-download" id="btnDownload">⬇ Download</button>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>initDownloader({ platform: 'facebook' });</script>
+</body>
+</html>
