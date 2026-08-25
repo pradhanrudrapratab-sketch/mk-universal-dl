@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MK Universal Downloader</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    body {
+      background: #0a0a14;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(124,58,237,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(37,99,235,0.15) 0%, transparent 50%);
+    }
+    .navbar {
+      background: rgba(10,10,20,0.85);
+      border-bottom-color: rgba(255,255,255,0.07);
+    }
+
+    /* Platform card colors */
+    .card-yt   { background: rgba(255,0,0,0.08); }       .card-yt:hover   { background: rgba(255,0,0,0.14); }
+    .card-ig   { background: rgba(225,48,108,0.08); }    .card-ig:hover   { background: rgba(225,48,108,0.14); }
+    .card-fb   { background: rgba(24,119,242,0.08); }    .card-fb:hover   { background: rgba(24,119,242,0.14); }
+    .card-tw   { background: rgba(29,161,242,0.08); }    .card-tw:hover   { background: rgba(29,161,242,0.14); }
+    .card-tk   { background: rgba(0,0,0,0.3); border-color: rgba(105,201,208,0.25); }
+    .card-tk:hover { background: rgba(105,201,208,0.08); }
+    .card-sp   { background: rgba(30,215,96,0.08); }     .card-sp:hover   { background: rgba(30,215,96,0.14); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-icon">MK</div>
+    <div class="nav-logo-text">
+      MK Universal Downloader
+      <span>Free · Fast · Clean</span>
+    </div>
+  </a>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Dropdown -->
+<div class="dropdown" id="dropdown">
+  <a href="https://mrkanha.likesyou.org" target="_blank">
+    👨‍💻 Contact Developer
+  </a>
+  <a href="/">🏠 Home</a>
+</div>
+
+<!-- Page -->
+<div class="page-wrap">
+  <div class="container">
+    <div class="home-hero">
+      <h1>Download from<br/><span>Anywhere.</span></h1>
+      <p>Pick your platform — no tracking links, no clutter, just your media.</p>
+    </div>
+
+    <div class="platform-grid">
+      <a class="platform-card card-yt" href="/youtube">
+        <span class="icon">▶️</span>
+        <span class="name">YouTube</span>
+        <span class="tagline">Video & Audio</span>
+      </a>
+      <a class="platform-card card-ig" href="/instagram">
+        <span class="icon">📸</span>
+        <span class="name">Instagram</span>
+        <span class="tagline">Reels & Posts</span>
+      </a>
+      <a class="platform-card card-fb" href="/facebook">
+        <span class="icon">📘</span>
+        <span class="name">Facebook</span>
+        <span class="tagline">Videos</span>
+      </a>
+      <a class="platform-card card-tw" href="/twitter">
+        <span class="icon">🐦</span>
+        <span class="name">Twitter / X</span>
+        <span class="tagline">Videos & GIFs</span>
+      </a>
+      <a class="platform-card card-tk" href="/tiktok">
+        <span class="icon">🎵</span>
+        <span class="name">TikTok</span>
+        <span class="tagline">No Watermark</span>
+      </a>
+      <a class="platform-card card-sp" href="/spotify">
+        <span class="icon">🎧</span>
+        <span class="name">Spotify</span>
+        <span class="tagline">Track & Playlist</span>
+      </a>
+    </div>
+
+    <p style="text-align:center; margin-top:40px; font-size:12px; color:rgba(255,255,255,0.25);">
+      Tracking parameters are automatically removed from all links. For personal use only.
+    </p>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
