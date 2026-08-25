@@ -1,3 +1,4 @@
+
 services:
   - type: web
     name: mk-universal-downloader
@@ -5,10 +6,8 @@ services:
     plan: free
     buildCommand: |
       npm install
-      mkdir -p $HOME/bin
-      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o $HOME/bin/yt-dlp
-      chmod +x $HOME/bin/yt-dlp
-      $HOME/bin/yt-dlp --version
+      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+      chmod a+rx /usr/local/bin/yt-dlp
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
