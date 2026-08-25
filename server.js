@@ -1,9 +1,22 @@
 const express = require('express');
 const path = require('path');
-const { cleanUrl } = require('./utils/cleanUrl');
+const { execSync } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// ── yt-dlp PATH fix for Render ────────────────────────────────────────────────
+// Render installs yt-dlp to $HOME/bin — add it to PATH so exec() finds it
+process.env.PATH = `${process.env.HOME}/bin:/usr/local/bin:${process.env.PATH}`;
+
+// Verify yt-dlp at startup — logs version or clear error
+try {
+  const ver = execSync('yt-dlp --version', { encoding: 'utf8' }).trim();
+  console.log(`[MK Downloader] yt-dlp found: v${ver}`);
+} catch (e) {
+  console.error('[MK Downloader] ⚠️  yt-dlp NOT found in PATH:', process.env.PATH);
+  console.error('[MK Downloader] Build may have failed. Check Render build logs.');
+}
 
 // ── Render Optimization: auto-stop after inactivity ──────────────────────────
 let inactivityTimer;
@@ -22,7 +35,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Activity tracking middleware — resets idle timer on every request
 app.use((req, res, next) => {
   resetInactivityTimer();
   next();
@@ -31,28 +43,30 @@ app.use((req, res, next) => {
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api', require('./routes/download'));
 
-// Serve page HTML files
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/youtube', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'youtube.html')));
+app.get('/',          (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/youtube',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'youtube.html')));
 app.get('/instagram', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'instagram.html')));
-app.get('/facebook', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'facebook.html')));
-app.get('/twitter', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'twitter.html')));
-app.get('/tiktok', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'tiktok.html')));
-app.get('/spotify', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'spotify.html')));
+app.get('/facebook',  (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'facebook.html')));
+app.get('/twitter',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'twitter.html')));
+app.get('/tiktok',    (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'tiktok.html')));
+app.get('/spotify',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'spotify.html')));
 
-// ── Graceful shutdown on disconnect/close ─────────────────────────────────────
-process.on('SIGTERM', () => {
-  console.log('[MK Downloader] SIGTERM received. Closing server...');
-  server.close(() => process.exit(0));
+// Debug endpoint — check yt-dlp status live
+app.get('/api/health', (req, res) => {
+  try {
+    const ver = execSync('yt-dlp --version', { encoding: 'utf8' }).trim();
+    res.json({ status: 'ok', ytdlp: ver, path: process.env.PATH });
+  } catch (e) {
+    res.status(500).json({ status: 'error', message: 'yt-dlp not found', path: process.env.PATH });
+  }
 });
 
-process.on('SIGINT', () => {
-  console.log('[MK Downloader] SIGINT received. Closing server...');
-  server.close(() => process.exit(0));
-});
+// ── Graceful shutdown ─────────────────────────────────────────────────────────
+process.on('SIGTERM', () => { console.log('SIGTERM'); server.close(() => process.exit(0)); });
+process.on('SIGINT',  () => { console.log('SIGINT');  server.close(() => process.exit(0)); });
 
 // ── Start ─────────────────────────────────────────────────────────────────────
 const server = app.listen(PORT, () => {
   console.log(`[MK Downloader] Running on port ${PORT}`);
-  resetInactivityTimer(); // start idle timer on boot
+  resetInactivityTimer();
 });
